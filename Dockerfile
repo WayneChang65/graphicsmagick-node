@@ -1,13 +1,15 @@
 # The Alpine Linux with preinstalled Node.js
-FROM    node:8-alpine
+FROM node:14.17.1-alpine3.13
 
 ENV PKGNAME=graphicsmagick
-ENV PKGVER=1.3.30
+ENV PKGVER=1.3.36
 ENV PKGSOURCE=http://downloads.sourceforge.net/$PKGNAME/$PKGNAME/$PKGVER/GraphicsMagick-$PKGVER.tar.lz
 ENV JBIG_REPO=https://github.com/nu774/jbigkit.git
-ENV WEBP_VER=1.0.0
+ENV WEBP_VER=1.2.0
 ENV WEBP_REPO=https://github.com/webmproject/libwebp/archive/v$WEBP_VER.tar.gz
 
+# Update apk Repo for jasper-dev
+RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.10/main' >> /etc/apk/repositories
 #
 # Installing graphicsmagick dependencies
 RUN apk add --no-cache --update g++ \
@@ -27,7 +29,6 @@ RUN apk add --no-cache --update g++ \
                      libx11-dev \
                      libpng-dev \
                      libtool \
-                     jasper-dev \
                      bzip2-dev \
                      libxml2-dev \
                      tiff-dev \
